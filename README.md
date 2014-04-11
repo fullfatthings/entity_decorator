@@ -74,17 +74,17 @@ Unlike EntityFieldQuery, these finders return EntityDecorators with instantiated
 ```
 MyNodeTypeDecorator::find(12345); 
 ```
-Returns the node with nid 12345 or null if no such node exists.
+Returns the MyNodeTypeDecorator with nid 12345 or null if no such node exists.
 
 ```
 MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->execute(); 
 ```
-Returns an array of nodes where the value of 'field_my_custom_field' has the value 'Some value'.
+Returns an array of MyNodeTypeDecorators where the value of 'field_my_custom_field' has the value 'Some value'.
 
 ```
 MyNodeTypeDecorator::find_by_field_my_custom_field(array('Some value', 'another value'))->execute(); 
 ```
-Returns an array of nodes where the value of 'field_my_custom_field' has the value 'Some value' or 'another value'.
+Returns an array of MyNodeTypeDecorators where the value of 'field_my_custom_field' has the value 'Some value' or 'another value'.
 
 
 And you can chain them as well...
@@ -93,7 +93,7 @@ And you can chain them as well...
 MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->find_by_title('other value')->execute(); 
 ```
 
-Returns an array of nodes where 'field_my_custom_field' has the value 'Some value' and the 'title' has the value 'other value'. (Yes the finders also abstract away the property / field distinction).
+Returns an array of MyNodeTypeDecorators where 'field_my_custom_field' has the value 'Some value' and the 'title' has the value 'other value'. (Yes the finders also abstract away the property / field distinction).
 
 And sorting...
 
@@ -101,7 +101,7 @@ And sorting...
 MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->orderBy(field_another_field, 'ASC'); 
 ```
 
-Returns an array of nodes where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
+Returns an array of MyNodeTypeDecorators where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
 
 You may also only want one record
 
