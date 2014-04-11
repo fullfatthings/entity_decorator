@@ -14,7 +14,7 @@ Tired of typing code with deep nested arrays like this to work with your fields?
 
 Of course you are, so you use the [Entity API](https://drupal.org/project/entity).
 
-Which is an improvment but you may find yourself typing ```entity_metadata_wrapper``` a lot!
+Which is an improvement but you may find yourself typing ```entity_metadata_wrapper``` a lot!
 
 ```
 $wrapper = entity_metadata_wrapper('node', $node);
