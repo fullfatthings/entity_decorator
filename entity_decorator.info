@@ -1,0 +1,13 @@
+name = Entity Decorator
+description = Decorate your entities and add your own methods
+package = EntityDecorator
+
+; Core version (required)
+core = 7.x
+
+; PHP version requirement (optional)
+php = 5.3
+
+dependencies[] = entity
+
+files[] = entity_decorator_finder.class.inc
