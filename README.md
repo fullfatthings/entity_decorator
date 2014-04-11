@@ -37,7 +37,7 @@ Creating the decorator class is simple. Create a class like this.
 
 ```
 class MyNodeTypeDecorator extends EntityDecorator {
-  static public $entity_type = 'node';
+  static public $entityType = 'node';
   static public $bundle      = 'my_node_type';
 }
 ```
