@@ -98,7 +98,7 @@ Returns an array of MyDecoratedNodeTypes where 'field_my_custom_field' has the v
 And sorting...
 
 ```
-MyDecoratedNodeType::find_by_field_my_custom_field('Some value')->orderBy(field_another_field, 'ASC'); 
+MyDecoratedNodeType::find_by_field_my_custom_field('Some value')->orderBy('field_another_field', 'ASC'); 
 ```
 
 Returns an array of MyDecoratedNodeType where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
@@ -109,7 +109,8 @@ You may also only want one record
 MyDecoratedNodeType::find_first_by_field_my_custom_field('Some value');
 ```
 
-Which will return the first record where 'field_my_custom_field' has the value 'Some value'. **Note** you don't need to call the execute method with find_first_by_* as by definition the query can be executed immediately.
+Which will return the first record where 'field_my_custom_field' has the value 'Some value'. 
+**Note** you don't need to call the execute method with find_first_by_* as by definition the query can be executed immediately.
 
 
 
