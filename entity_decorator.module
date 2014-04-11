@@ -57,7 +57,7 @@ abstract class EntityDecorator {
   static public function find($id) {
     $class = get_called_class();
 
-    if ($class::$entity_type == 'node') {
+    if ($class::$entityType == 'node') {
       $entity = $class::findBy('nid', array($id))->execute();
     }
     else {
@@ -71,7 +71,7 @@ abstract class EntityDecorator {
 
   static protected function getFinder() {
     $class = get_called_class();
-    return new EntityDecoratorFinder($class, $class::$bundle, $class::$entity_type);
+    return new EntityDecoratorFinder($class, $class::$bundle, $class::$entityType);
   }
 
   /**
@@ -96,7 +96,7 @@ abstract class EntityDecorator {
 
   private function getEntityType() {
     $class = get_called_class();
-    return $class::$entity_type;
+    return $class::$entityType;
   }
 
   private function getBundle() {
