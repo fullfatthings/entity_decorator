@@ -67,6 +67,8 @@ Querying
 
 ``EntityFieldQuery`` has a somewhat verbose interface, and tricky to remember syntax. While entity decorator's finders don't yet implement the complete functionality of EntityFieldQuery, they should be simpler and easier to use.
 
+Unlike EntityFieldQuery, these finders return EntityDecorators with instantiated entities. We think that's nice.
+
 **Examples**
 
 ```
@@ -96,7 +98,7 @@ Returns an array of nodes where 'field_my_custom_field' has the value 'Some valu
 And sorting...
 
 ```
-MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->sortBy(field_another_field, 'ASC'); 
+MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->orderBy(field_another_field, 'ASC'); 
 ```
 
 Returns an array of nodes where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
@@ -108,6 +110,8 @@ MyNodeTypeDecorator::find_first_by_field_my_custom_field('Some value');
 ```
 
 Which will return the first record where 'field_my_custom_field' has the value 'Some value'. **Note** you don't need to call the execute method with find_first_by_* as by definition the query can be executed immediately.
+
+
 
 
 
