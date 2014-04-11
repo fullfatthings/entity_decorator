@@ -20,7 +20,7 @@ Which is an improvment but you may find yourself typing ```entity_metadata_wrapp
 $wrapper = entity_metadata_wrapper('node', $node);
 ```
 
-You may get the urge to want to treat your entities as objects and extend them. 
+You also may get the urge to want to treat your entities as objects and extend them with your own custom methods. 
 
 Entity decorator is designed to allow you to create decorator objects for any entity or node type, and presents them with a beautiful, concise interface.
 
@@ -36,7 +36,7 @@ Usage
 Creating the decorator class is simple. Create a class like this.
 
 ```
-class MyNodeTypeDecorator extends EntityDecorator {
+class MyDecoratedNodeType extends EntityDecorator {
   static public $entityType = 'node';
   static public $bundle     = 'my_node_type';
 }
@@ -49,7 +49,7 @@ Plus, you can add any custom methods to your class that you like.
 Now you can write code like this:
 
 ```
-$node = new MyNodeTypeDecorator();
+$node = new MyDecoratedNodeType();
 $node->set_title('The title');
 $node->set_field_my_custom_field('My value');
 $node->callACustomMethod();
@@ -72,41 +72,41 @@ Unlike EntityFieldQuery, these finders return EntityDecorators with instantiated
 **Examples**
 
 ```
-MyNodeTypeDecorator::find(12345); 
+MyDecoratedNodeType::find(12345); 
 ```
-Returns the MyNodeTypeDecorator with nid 12345 or null if no such node exists.
+Returns the MyDecoratedNodeType with nid 12345 or null if no such node exists.
 
 ```
-MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->execute(); 
+MyDecoratedNodeType::find_by_field_my_custom_field('Some value')->execute(); 
 ```
-Returns an array of MyNodeTypeDecorators where the value of 'field_my_custom_field' has the value 'Some value'.
+Returns an array of MyDecoratedNodeTypes where the value of 'field_my_custom_field' has the value 'Some value'.
 
 ```
-MyNodeTypeDecorator::find_by_field_my_custom_field(array('Some value', 'another value'))->execute(); 
+MyDecoratedNodeType::find_by_field_my_custom_field(array('Some value', 'another value'))->execute(); 
 ```
-Returns an array of MyNodeTypeDecorators where the value of 'field_my_custom_field' has the value 'Some value' or 'another value'.
+Returns an array of MyDecoratedNodeTypes where the value of 'field_my_custom_field' has the value 'Some value' or 'another value'.
 
 
 And you can chain them as well...
 
 ```
-MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->find_by_title('other value')->execute(); 
+MyDecoratedNodeType::find_by_field_my_custom_field('Some value')->find_by_title('other value')->execute(); 
 ```
 
-Returns an array of MyNodeTypeDecorators where 'field_my_custom_field' has the value 'Some value' and the 'title' has the value 'other value'. (Yes the finders also abstract away the property / field distinction).
+Returns an array of MyDecoratedNodeTypes where 'field_my_custom_field' has the value 'Some value' and the 'title' has the value 'other value'. (Yes the finders also abstract away the property / field distinction).
 
 And sorting...
 
 ```
-MyNodeTypeDecorator::find_by_field_my_custom_field('Some value')->orderBy(field_another_field, 'ASC'); 
+MyDecoratedNodeType::find_by_field_my_custom_field('Some value')->orderBy(field_another_field, 'ASC'); 
 ```
 
-Returns an array of MyNodeTypeDecorators where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
+Returns an array of MyDecoratedNodeType where 'field_my_custom_field' has the value 'Some value' and is sorted by the value of field_another_field.
 
 You may also only want one record
 
 ```
-MyNodeTypeDecorator::find_first_by_field_my_custom_field('Some value');
+MyDecoratedNodeType::find_first_by_field_my_custom_field('Some value');
 ```
 
 Which will return the first record where 'field_my_custom_field' has the value 'Some value'. **Note** you don't need to call the execute method with find_first_by_* as by definition the query can be executed immediately.
