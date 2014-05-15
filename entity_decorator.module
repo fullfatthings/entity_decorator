@@ -177,7 +177,7 @@ abstract class EntityDecorator {
       return call_user_func_array(array($this->entity, $name), $args);
     }
     else {
-      throw new EntityDecoratorMethodNotFound(get_called_class() . " has not no instance method called " . $name);
+      throw new EntityDecoratorMethodNotFound(get_called_class() . " has no instance method called " . $name);
     }
   }
 
@@ -193,6 +193,6 @@ abstract class EntityDecorator {
       return $class::findFirstBy(drupal_substr($name, 14), $args[0]);
     }
 
-    throw new EntityDecoratorMethodNotFound(get_called_class() . " has not no static method called " . $name);
+    throw new EntityDecoratorMethodNotFound(get_called_class() . " has no static method called " . $name);
   }
 }
