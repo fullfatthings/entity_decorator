@@ -167,7 +167,7 @@ abstract class EntityDecorator {
   public function __call($name, array $args) {
     // Implement our default get and set. These should be overridden for special cases.
     if (drupal_substr($name, 0, 4) == 'get_') {
-      return $this->get(drupal_substr($name, 4), $args[0]);
+      return $this->get(drupal_substr($name, 4));
     }
     elseif (drupal_substr($name, 0, 4) == 'set_') {
       return $this->set(drupal_substr($name, 4), $args[0]);
