@@ -174,11 +174,10 @@ abstract class EntityDecorator {
     }
     elseif (method_exists($this->entity, $name)) {
       // Implement decorator pattern by proxying methods to the wrapped entity.
-      return $this->entity->$name;
+      return call_user_func_array(array($this->entity, $name), $args);
     }
     else {
-      $class = get_called_class();
-      throw new EntityDecoratorMethodNotFound($get_called_class . " has not no instance method called " . $name);
+      throw new EntityDecoratorMethodNotFound($get_called_class() . " has not no instance method called " . $name);
     }
   }
 
