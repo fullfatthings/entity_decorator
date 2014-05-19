@@ -157,7 +157,7 @@ abstract class EntityDecorator {
   }
 
   public function __isset($name) {
-    return property_exists($this->entity, $name) && !empty($this->entity->name);
+    return property_exists($this->entity, $name) && !empty($this->entity->$name);
   }
 
   public function __unset($name) {
