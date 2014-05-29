@@ -128,6 +128,35 @@ abstract class EntityDecorator {
   }
 
   /**
+   * Get a field or property of the extended entity that is an object and return a decorated instance.
+   * Works with arrays of objects too (e.g like a field collection).
+   * If the field is not an object or an array of objects, it returns the raw value.
+   *
+   * @param string $field  The name of the field or property to set
+   * @param string $class_name The name of the class to decorate it with
+   */
+  public function get_decorated($attr_name, $class_name) {
+    $field = $this->get($attr_name);
+
+    if (is_object($field)) {
+      return $class_name::buildFromEntity($field);
+    }
+    elseif (is_array($field)) {
+      return array_map(function($item) use ($class_name) {
+        if (is_object($item)) {
+          return $class_name::buildFromEntity($item);
+        }
+        else {
+          return $item;
+        }
+      }, $field);
+    }
+    else {
+      return $field;
+    }
+  }
+
+  /**
    * Persist current state of the entity to the database.
    */
   public function save() {
