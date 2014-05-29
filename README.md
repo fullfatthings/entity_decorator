@@ -68,7 +68,7 @@ Relations and references
 If you have a field that is a reference to an entity, then Entity Decorator returns the entity as expected if you call
 
 ```
-$node->get_field_my_entity()
+$node->get_field_my_entity();
 ```
 
 or
@@ -80,7 +80,7 @@ $node->get('field_my_entity');
 If the entity you are getting also has an entity_decorator class to wrap it, you can call
 
 ```
-$node->get('field_my_entity', 'class_name_that_decorates_it');
+$node->getDecorated('field_my_entity', 'class_name_that_decorates_it');
 ```
 
 And you will be returned the decorated entity.
@@ -88,7 +88,7 @@ And you will be returned the decorated entity.
 This also works on arrays of entities, e.g with a field_collection. So:
 
 ```
-$node->get('field_my_field_collection', 'class_name_that_decorates_it');
+$node->getDecorated('field_my_field_collection', 'class_name_that_decorates_it');
 ```
 
 Would return an array of decorated field_collection items.
