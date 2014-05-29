@@ -135,7 +135,7 @@ abstract class EntityDecorator {
    * @param string $field  The name of the field or property to get
    * @param string $class_name The name of the class to decorate it with
    */
-  public function get_decorated($attr_name, $class_name) {
+  public function getDecorated($attr_name, $class_name) {
     $field = $this->get($attr_name);
 
     if (is_object($field)) {
