@@ -3,6 +3,8 @@ entity decorator
 
 A Drupal 7 Module to beautifully decorate your entities.
 
+Packagist is here https://packagist.org/packages/alnutile/entity_decorator
+
 Preamble
 --------
 
@@ -33,9 +35,13 @@ Entity decorator should work equally well with custom entities and node types, w
 Usage
 -----
 
+Install and update composer using [composer_manager](https://www.drupal.org/project/composer_manager)
+
 Creating the decorator class is simple. Create a class like this.
 
 ```
+use EntityDecorator;
+
 class MyDecoratedNodeType extends EntityDecorator {
   static public $entityType = 'node';
   static public $bundle     = 'my_node_type';
