@@ -3,6 +3,8 @@ entity decorator
 
 A Drupal 7 Module to beautifully decorate your entities.
 
+Packagist is here https://packagist.org/packages/alnutile/entity_decorator
+
 Preamble
 --------
 
