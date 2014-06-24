@@ -178,9 +178,7 @@ abstract class EntityDecorator {
   // Magic methods to act as a decorator (have the same methods and properties as the object we are wrapping).
   // Needs to be a reference so we can set nested properties and array values.
   public function &__get($name) {
-    if (isset($this->entity->$name)) {
-      return $this->entity->$name;
-    }
+    return $this->entity->$name;
   }
 
   public function __set($name, $value) {
