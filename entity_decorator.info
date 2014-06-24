@@ -9,5 +9,4 @@ core = 7.x
 php = 5.3
 
 dependencies[] = entity
-
-files[] = entity_decorator_finder.class.inc
+dependencies[] = composer_manager
