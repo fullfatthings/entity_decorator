@@ -29,8 +29,12 @@ abstract class EntityDecorator {
       if ($this->getEntityType() == 'node') {
         // Node specific preparation.
         $this->entity = new stdClass;
-        $this->entity->type = $this->getBundle();
+        $this->entity->type = $this->getBundle(); // The bundle for nodes is the node_type.
         node_object_prepare($this->entity);
+      }
+      elseif ($this->getEntityType() == 'taxonomy_term') {
+        $this->entity = new stdClass;
+        $this->entity->type = $this->getBundle(); // The bundle for taxonomy terms is the vocabulary.
       }
       else {
         $this->entity = entity_create($this->getEntityType(), array('type' => $this->getBundle()));
@@ -59,6 +63,9 @@ abstract class EntityDecorator {
 
     if ($class::$entityType == 'node') {
       $entity = $class::findBy('nid', array($id))->execute();
+    }
+    elseif ($class::$entityType == 'taxonomy_term') {
+      $entity = $class::findBy('tid', array($id))->execute();
     }
     else {
       $entity = $class::findBy('id', array($id))->execute();
@@ -169,6 +176,9 @@ abstract class EntityDecorator {
   public function delete() {
     if ($this->getEntityType() == 'node') {
       node_delete($this->get('nid'));
+    }
+    elseif ($this->getEntityType() == 'taxonomy_term') {
+      taxonomy_term_delete($this->get('tid'));
     }
     else {
       entity_delete($this->getEntityType(), $this->get('id'));
