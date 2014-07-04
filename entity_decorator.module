@@ -35,7 +35,7 @@ abstract class EntityDecorator {
           break;
 
         case 'taxonomy_term':
-          // Node specific preparation.
+          // Taxonomy term specific preparation.
           $this->entity = new stdClass;
           $this->entity->vocabulary_machine_name = $this->getBundle();
           $this->entity->vid = taxonomy_vocabulary_machine_name_load($this->getBundle())->vid; // The bundle for taxonomy terms is the vocabulary.
