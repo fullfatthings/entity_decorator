@@ -28,7 +28,7 @@ It also creates a new interface to querying for entities and node types which, h
 
 A common use case may be you want to create custom entity types with [ECK](https://drupal.org/project/eck) but then create custom methods for those types based on the fields and properties you have created.
 
-Entity decorator should work equally well with custom entities and node types, whichever you prefer to decorate.
+Entity decorator should work equally well with custom entities node types and taxonomy terms, whichever you prefer to decorate.
 
 Usage
 -----
@@ -39,6 +39,15 @@ Creating the decorator class is simple. Create a class like this.
 class MyDecoratedNodeType extends EntityDecorator {
   static public $entityType = 'node';
   static public $bundle     = 'my_node_type';
+}
+```
+
+or
+
+```
+class MyDecoratedTerm extends EntityDecorator {
+  static public $entityType = 'taxonomy_term';
+  static public $bundle     = 'my_vocabulary';
 }
 ```
 
