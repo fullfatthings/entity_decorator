@@ -26,18 +26,24 @@ abstract class EntityDecorator {
       $this->entity = $entity;
     }
     else {
-      if ($this->getEntityType() == 'node') {
-        // Node specific preparation.
-        $this->entity = new stdClass;
-        $this->entity->type = $this->getBundle(); // The bundle for nodes is the node_type.
-        node_object_prepare($this->entity);
-      }
-      elseif ($this->getEntityType() == 'taxonomy_term') {
-        $this->entity = new stdClass;
-        $this->entity->type = $this->getBundle(); // The bundle for taxonomy terms is the vocabulary.
-      }
-      else {
-        $this->entity = entity_create($this->getEntityType(), array('type' => $this->getBundle()));
+      switch ($this->getEntityType()) {
+        case 'node':
+          // Node specific preparation.
+          $this->entity = new stdClass;
+          $this->entity->type = $this->getBundle(); // The bundle for nodes is the node_type.
+          node_object_prepare($this->entity);
+          break;
+
+        case 'taxonomy_term':
+          // Node specific preparation.
+          $this->entity = new stdClass;
+          $this->entity->vocabulary_machine_name = $this->getBundle();
+          $this->entity->vid = taxonomy_vocabulary_machine_name_load($this->getBundle())->vid; // The bundle for taxonomy terms is the vocabulary.
+          break;
+
+        default:
+          $this->entity = entity_create($this->getEntityType(), array('type' => $this->getBundle()));
+          break;
       }
     }
   }
@@ -54,6 +60,25 @@ abstract class EntityDecorator {
   }
 
   /**
+   * Return the right primary key field for the entity type.
+   * @return string
+   */
+  private static function getIdKey() {
+    $class = get_called_class();
+
+    $map = array(
+      'node' => 'nid',
+      'taxonomy_term' => 'tid',
+    );
+
+    if (array_key_exists($class::$entityType, $map)) {
+      return $map[$class::$entityType];
+    }
+
+    return 'id';
+  }
+
+  /**
    * Find an instance by ID.
    * @param  int $id
    * @return Instance of subclass of EntityDecorator
@@ -61,19 +86,7 @@ abstract class EntityDecorator {
   static public function find($id) {
     $class = get_called_class();
 
-    if ($class::$entityType == 'node') {
-      $entity = $class::findBy('nid', array($id))->execute();
-    }
-    elseif ($class::$entityType == 'taxonomy_term') {
-      $entity = $class::findBy('tid', array($id))->execute();
-    }
-    else {
-      $entity = $class::findBy('id', array($id))->execute();
-    }
-
-    if (count($entity)) {
-      return current($entity);
-    }
+    return $class::findFirstBy($class::getIdKey(), $id);
   }
 
   static protected function getFinder() {
@@ -174,15 +187,7 @@ abstract class EntityDecorator {
    * Delete the current entity from the database.
    */
   public function delete() {
-    if ($this->getEntityType() == 'node') {
-      node_delete($this->get('nid'));
-    }
-    elseif ($this->getEntityType() == 'taxonomy_term') {
-      taxonomy_term_delete($this->get('tid'));
-    }
-    else {
-      entity_delete($this->getEntityType(), $this->get('id'));
-    }
+    return $this->getWrappedEntity()->delete();
   }
 
   // Magic methods to act as a decorator (have the same methods and properties as the object we are wrapping).
