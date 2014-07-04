@@ -65,17 +65,8 @@ abstract class EntityDecorator {
    */
   private static function getIdKey() {
     $class = get_called_class();
-
-    $map = array(
-      'node' => 'nid',
-      'taxonomy_term' => 'tid',
-    );
-
-    if (array_key_exists($class::$entityType, $map)) {
-      return $map[$class::$entityType];
-    }
-
-    return 'id';
+    $entity_info = entity_get_info($class::$entityType);
+    return $entity_info['entity keys']['id'];
   }
 
   /**
