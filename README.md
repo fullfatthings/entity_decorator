@@ -28,7 +28,7 @@ It also creates a new interface to querying for entities and node types which, h
 
 A common use case may be you want to create custom entity types with [ECK](https://drupal.org/project/eck) but then create custom methods for those types based on the fields and properties you have created.
 
-Entity decorator should work equally well with custom entities node types and taxonomy terms, whichever you prefer to decorate.
+Entity decorator should work equally well with custom entities, node types and taxonomy terms, whichever you prefer to decorate.
 
 Usage
 -----
