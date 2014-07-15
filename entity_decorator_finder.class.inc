@@ -138,7 +138,7 @@ class EntityDecoratorFinder {
    * Implements the metaprogramming finders.
    */
   public function __call($name, array $args) {
-    if (drupal_substr($name, 0, 7) == 'find_by_') {
+    if (drupal_substr($name, 0, 8) == 'find_by_') {
       return $this->findBy(drupal_substr($name, 8), $args[0]);
     }
 
