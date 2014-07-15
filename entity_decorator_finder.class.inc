@@ -40,10 +40,16 @@ class EntityDecoratorFinder {
       throw new EntityDecoratorUnsupportedArgument('EntityDecoratorFinders can only take scalars and arrays as arguments');
     }
 
+    // Determine the correct storage key.
+    $field_info = field_info_field($field_name);
+
     if (count($value)) {
       // Is the field a property?
       if ($this->isProperty($field_name)) {
         $this->query->propertyCondition($field_name, $value, $operator);
+      }
+      else if (isset($field_info['columns'])) {
+        $this->query->fieldCondition($field_name, current(array_keys($field_info['columns'])), $value, $operator);
       }
       else {
         $this->query->fieldCondition($field_name, 'value', $value, $operator);
