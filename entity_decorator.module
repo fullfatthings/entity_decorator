@@ -69,6 +69,14 @@ abstract class EntityDecorator {
     }
   }
 
+  /**
+   * Find all instances.
+   * @return Array of instances of subclass of EntityDecorator
+   */
+  static public function findAll() {
+    return self::getFinder()->execute();
+  }
+
   static protected function getFinder() {
     $class = get_called_class();
     return new EntityDecoratorFinder($class, $class::$bundle, $class::$entityType);
