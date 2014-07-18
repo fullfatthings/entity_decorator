@@ -22,6 +22,21 @@ class EntityDecoratorFinder {
          ->entityCondition('bundle', $bundle);
   }
 
+  /**
+   * Gets the name of the column used to store a fields primary value.
+   * @param string $field_name the field to check.
+   * @return string
+   * @throws EntityDecoratorFieldNotFound
+   */
+  protected function getColumnForField($field_name) {
+    $field_info = field_info_field($field_name);
+    if ($field_info) {
+      return current(array_keys($field_info['columns']));
+    }    
+    else {
+      throw new EntityDecoratorFieldNotFound("No field called " . $field_name . " found");
+    }
+  }
 
   /**
    * Find entities where the field_name or property has a matching value.
@@ -40,19 +55,13 @@ class EntityDecoratorFinder {
       throw new EntityDecoratorUnsupportedArgument('EntityDecoratorFinders can only take scalars and arrays as arguments');
     }
 
-    // Determine the correct storage key.
-    $field_info = field_info_field($field_name);
-
     if (count($value)) {
       // Is the field a property?
       if ($this->isProperty($field_name)) {
         $this->query->propertyCondition($field_name, $value, $operator);
       }
-      else if (isset($field_info['columns'])) {
-        $this->query->fieldCondition($field_name, current(array_keys($field_info['columns'])), $value, $operator);
-      }
       else {
-        $this->query->fieldCondition($field_name, 'value', $value, $operator);
+        $this->query->fieldCondition($field_name, $this->getColumnForField($field_name), $value, $operator);
       }
     }
 
