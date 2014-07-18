@@ -81,7 +81,7 @@ class EntityDecoratorFinder {
       $this->query->propertyOrderBy($field_name, $asc_or_desc);
     }
     else {
-      $this->query->fieldOrderBy($field_name, 'value', $asc_or_desc);
+      $this->query->fieldOrderBy($field_name, $this->getColumnForField($field_name), $asc_or_desc);
     }
 
     return $this;
