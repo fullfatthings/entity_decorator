@@ -56,13 +56,9 @@ abstract class EntityDecorator {
    */
   static public function find($id) {
     $class = get_called_class();
+    $info = entity_get_info($class::$entityType);
 
-    if ($class::$entityType == 'node') {
-      $entity = $class::findBy('nid', array($id))->execute();
-    }
-    else {
-      $entity = $class::findBy('id', array($id))->execute();
-    }
+    $entity = $class::findBy($info['entity keys']['id'], array($id))->execute();
 
     if (count($entity)) {
       return current($entity);
