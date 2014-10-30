@@ -22,7 +22,7 @@ class EntityDecoratorFinder {
 
     // User is a "special case" as it has no bundle to query against.
     // Setting a bundle triggers EFQ to add "WHERE 1=0" to the SQL.
-    if ($entity_type != 'user') {
+    if ($entityType != 'user') {
       $this->query->entityCondition('bundle', $bundle);
     }
   }
