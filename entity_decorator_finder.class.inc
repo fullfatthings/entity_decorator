@@ -27,6 +27,21 @@ class EntityDecoratorFinder {
     }
   }
 
+  /**
+   * Gets the name of the column used to store a fields primary value.
+   * @param string $field_name the field to check.
+   * @return string
+   * @throws EntityDecoratorFieldNotFound
+   */
+  protected function getColumnForField($field_name) {
+    $field_info = field_info_field($field_name);
+    if ($field_info) {
+      return current(array_keys($field_info['columns']));
+    }    
+    else {
+      throw new EntityDecoratorFieldNotFound("No field called " . $field_name . " found");
+    }
+  }
 
   /**
    * Find entities where the field_name or property has a matching value.
@@ -51,7 +66,7 @@ class EntityDecoratorFinder {
         $this->query->propertyCondition($field_name, $value, $operator);
       }
       else {
-        $this->query->fieldCondition($field_name, 'value', $value, $operator);
+        $this->query->fieldCondition($field_name, $this->getColumnForField($field_name), $value, $operator);
       }
     }
 
@@ -71,7 +86,7 @@ class EntityDecoratorFinder {
       $this->query->propertyOrderBy($field_name, $asc_or_desc);
     }
     else {
-      $this->query->fieldOrderBy($field_name, 'value', $asc_or_desc);
+      $this->query->fieldOrderBy($field_name, $this->getColumnForField($field_name), $asc_or_desc);
     }
 
     return $this;
@@ -143,7 +158,7 @@ class EntityDecoratorFinder {
    * Implements the metaprogramming finders.
    */
   public function __call($name, array $args) {
-    if (drupal_substr($name, 0, 7) == 'find_by_') {
+    if (drupal_substr($name, 0, 8) == 'find_by_') {
       return $this->findBy(drupal_substr($name, 8), $args[0]);
     }
 

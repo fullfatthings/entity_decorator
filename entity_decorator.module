@@ -12,6 +12,8 @@ class EntityDecoratorMethodNotFound extends EntityDecoratorException {}
 
 class EntityDecoratorUnsupportedArgument extends EntityDecoratorException {}
 
+class EntityDecoratorFieldNotFound extends EntityDecoratorException {}
+
 abstract class EntityDecorator {
   static $entityType;
   static $bundle;
@@ -63,6 +65,14 @@ abstract class EntityDecorator {
     if (count($entity)) {
       return current($entity);
     }
+  }
+
+  /**
+   * Find all instances.
+   * @return Array of instances of subclass of EntityDecorator
+   */
+  static public function findAll() {
+    return self::getFinder()->execute();
   }
 
   static protected function getFinder() {
