@@ -14,6 +14,8 @@ class EntityDecoratorUnsupportedArgument extends EntityDecoratorException {}
 
 class EntityDecoratorFieldNotFound extends EntityDecoratorException {}
 
+class EntityDecoratorInvalidEntity extends EntityDecoratorException {}
+
 abstract class EntityDecorator {
   static $entityType;
   static $bundle;
@@ -57,6 +59,14 @@ abstract class EntityDecorator {
    */
   static public function buildFromEntity($entity) {
     $class = get_called_class();
+
+    list(, , $bundle) = entity_extract_ids($class::$entityType, $entity);
+
+    if  ($bundle != $class::$bundle) {
+      // Entity bundle doesn't match class-defined bundle.
+      throw new EntityDecoratorInvalidEntity($class . " can only be instantiated from an entity of type '" . $class::$entityType . "' and bundle '" . $class::$bundle . "'.");
+    }
+
     $object = new $class($entity);
     return $object;
   }
