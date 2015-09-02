@@ -65,7 +65,7 @@ abstract class EntityDecorator {
    * Return the right primary key field for the entity type.
    * @return string
    */
-  private static function getIdKey() {
+  static protected function getIdKey() {
     $class = get_called_class();
     $entity_info = entity_get_info($class::$entityType);
     return $entity_info['entity keys']['id'];
